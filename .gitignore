@@ -1,0 +1,10 @@
+.DS_Store
+.env*
+.secrets/
+*.key
+*.pem
+private-terms.txt
+id_ed25519*
+.lighthouse/
+colors/
+*.jsonl
