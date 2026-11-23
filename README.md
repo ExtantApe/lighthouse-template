@@ -55,6 +55,25 @@ You need Claude Code, the GitHub CLI (`gh`), Node 24 or newer, and `git`.
      On the Lamplighter, run `lighthouse add-vessel --name <name> --mode none`.
 5. Give your Claude session the tools: `claude mcp add lighthouse -- lighthouse mcp`
 6. Check it: `lighthouse status` names the station and its mode, and `lighthouse lamp-check` passes.
+7. Keep it watching: `bash scripts/watch-agent.sh install`. See below.
+
+## Keep it watching
+
+Every station keeps a watcher running by default. It's a LaunchAgent in your own `~/Library/LaunchAgents` (no admin
+rights needed) that runs `lighthouse watch --forever`, starts at login and restarts it if it stops. It fetches the
+repos this station waits on every few minutes, and for each new bottle (on a None vessel, each new chart notice) it adds
+one line to `~/.lighthouse/watch.log` and shows a notification. It never opens a bottle: `pick-up` still does the cork
+check.
+
+A Claude session that's open but idle can follow the log and be woken only when a line is added:
+
+```bash
+tail -n 0 -F ~/.lighthouse/watch.log
+```
+
+**To turn it off**, for any reason: `bash scripts/watch-agent.sh off`. It stays off after restarts until you run
+`bash scripts/watch-agent.sh on`. `remove` takes it out entirely (the agent file goes to the Trash), and `status` says
+whether it's running and shows the last few lines of the log.
 
 ## What this repo is for
 
