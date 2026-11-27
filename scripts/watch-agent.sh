@@ -52,7 +52,7 @@ need_station() {
 case "${1:-status}" in
   install)
     need_station
-    lh=$(command -v lighthouse) || { echo "lighthouse isn't on your PATH. Install it first: npm install -g @extantape/lighthouse"; exit 1; }
+    lh=$(command -v lighthouse) || { echo "lighthouse isn't on your PATH. Install it first, from source (it isn't on npm yet): see step 1 of \"Set up on this machine\" in README.md"; exit 1; }
     node=$(command -v node) || { echo "node isn't on your PATH."; exit 1; }
     mkdir -p "$AGENTS" "$LH_HOME"; touch "$LOG"; chmod 600 "$LOG"
     plist "$lh" "$(dirname "$node")" > "$PLIST.tmp" && plutil -lint -s "$PLIST.tmp" && mv "$PLIST.tmp" "$PLIST" || { rm -f "$PLIST.tmp"; echo "couldn't write the agent"; exit 1; }
