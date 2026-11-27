@@ -33,7 +33,9 @@ seeing.
 
 You need Claude Code, the GitHub CLI (`gh`), Node 24 or newer, and `git`.
 
-1. Install Lighthouse: `npm install -g @extantape/lighthouse`
+1. Install Lighthouse from source. It isn't on npm yet, so `npm install -g` won't find it. Clone the Lighthouse repo
+   (private for now, so you need access), then run `npm ci && npm run build && npm link` in it. Its README has the
+   steps under "Install or build".
 2. Write the private terms list at `~/.lighthouse/private-terms.txt`: one term per line, comments only on lines of
    their own that start with `#`. These are words that must
    never leave this machine: names, places, projects. Every bottle and chart is checked against them, and with no list,
